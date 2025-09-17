@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -45,4 +46,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     *
+     *  * The attributes that should be cast.
+     * */
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+
 }
