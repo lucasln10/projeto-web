@@ -4,6 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/*
+export PATH="/usr/bin:$PATH"
+/usr/bin/php -v
+*/
+
 return new class extends Migration
 {
     /**

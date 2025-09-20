@@ -2,32 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Role;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
-abstract class UserController
+class UserController
 {
-    private User $user;
-    private Role $role;
-
-    public function __construct(User $user, Role $role)
+    public function login(Request $request)
     {
-        $this->user = $user;
-        $this->role = $role;
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+
+            if ($user && Hash::check($request->password, $user->password)) {
+                Auth::login($user);
+                return redirect()->route('home');
+            }
+
+            return redirect()->back()->withErrors(['error' => 'Credenciais inválidas']);
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Dados inválidos']);
+        }
     }
 
-    public function createUser(Request $request)
+    public function register(Request $request)
     {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:6'
+            ]);
 
-        $user = new User();
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-        $user->password = bcrypt($request['password']);
-        $user->role = 'user';
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-        $user->save();
+            return redirect()->route('login')->with('success', 'Usuário registrado com sucesso!');
 
-        return response()->json(['message' => 'User created successfully'], 201);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Erro ao registrar usuário']);
+        }
     }
 }
