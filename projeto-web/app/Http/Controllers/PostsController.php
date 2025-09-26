@@ -11,30 +11,29 @@ class PostsController
     public function createPost(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|integer|exists:users,id',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
         $user = Auth::user();
 
-        if ($user->id !== $request->user_id) {
-            return response()->json(['error' => 'Unauthorized'], 403);
+        if ($user->id != $request->user_id) {
+            return response()->json(['error' => 'Unauthorized' . $user->id], 403);
         }
 
         $post = Posts::create([
-            'user_id' => $request->user_id,
-            'title' => $request->title,
-            'content' => $request->content,
+            'user_id' => $user->id,
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
         ]);
-        return response()->json(['success' => 'Post criado com sucesso!'], 201);
+        return redirect()->route('posts.all');
 
     }
 
     public function getAllPosts()
     {
         $posts = Posts::all();
-        return response()->json($posts);
+        return response()->view('posts', ['posts' => $posts]);
     }
 
     public function getPostById($id)

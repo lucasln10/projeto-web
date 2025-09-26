@@ -18,6 +18,7 @@
             </nav>
         </section>
     </div>
+    <h2>Esse e seu id: {{ Auth::id() }}</h2>
     <section>
         <h1>Criar Post</h1>
         <form action="{{ route('posts.create') }}" method="POST">
@@ -29,6 +30,9 @@
             <div>
                 <label for="content">Conteúdo:</label>
                 <textarea id="content" name="content" required></textarea>
+            </div>
+            <div>
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             </div>
             <button type="submit">Criar Post</button>
         </form>

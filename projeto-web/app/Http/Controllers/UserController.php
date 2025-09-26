@@ -48,7 +48,7 @@ class UserController
                 'password' => Hash::make($request->password),
             ]);
 
-            return redirect()->route('login')->with('success', 'Usuário registrado com sucesso!');
+            return redirect()->route('login.view')->with('success', 'Usuário registrado com sucesso!');
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Erro ao registrar usuário']);
