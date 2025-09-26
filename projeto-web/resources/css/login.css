@@ -1,7 +1,0 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center;    /* Centraliza verticalmente */
-}
