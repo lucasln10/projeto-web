@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 </head>
 <body>
     <div>
-        <header>
-            <h1>PAGINA DE REGISTRO</h1>
-        </header>
-    </div>
-    <div>
         <section>
+            <h1>PAGINA DE REGISTRO</h1>
             <form method="POST" action="{{ route('register.post') }}">
                 @csrf
                 <label for="name">Nome:</label>

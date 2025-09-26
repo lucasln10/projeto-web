@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
+    <link rel="stylesheet" href="{{ asset('css/createPosts.css') }}">
 </head>
 <body>
     <div>
@@ -38,7 +39,6 @@
         </form>
     </section>
     <footer>
-        <p><a href="{{ route('home') }}">Voltar para a página inicial</a></p>
     </footer>
 </body>
 </html>
