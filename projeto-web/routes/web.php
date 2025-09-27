@@ -25,11 +25,13 @@ Route::get('/home', function () {
     return view('home');
 })/*->middleware('auth')*/->name('home');
 
-Route::post('/logout', function () {
+Route::get('/logout', function () {
     Auth::logout();
     return redirect()->route('login.view');
 })->name('logout');
 
 Route::get('/posts', [PostsController::class, 'getAllPosts'])->name('posts.all');
-Route::get('/posts/create', [PostsController::class, 'createPost'])->name('posts.create.view');
-Route::post('/posts', [PostsController::class, 'storePost'])->name('posts.create');
+Route::get('/posts/create', function() {
+    return view('createPost');
+})->name('posts.create.view');
+Route::post('/posts', [PostsController::class, 'createPost'])->name('posts.create');

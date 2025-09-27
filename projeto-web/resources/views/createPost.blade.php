@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts</title>
+    <link rel="stylesheet" href="{{ asset('css/createPosts.css') }}">
 </head>
 <body>
     <div>
@@ -18,6 +19,7 @@
             </nav>
         </section>
     </div>
+    <h2>Esse e seu id: {{ Auth::id() }}</h2>
     <section>
         <h1>Criar Post</h1>
         <form action="{{ route('posts.create') }}" method="POST">
@@ -30,11 +32,13 @@
                 <label for="content">Conteúdo:</label>
                 <textarea id="content" name="content" required></textarea>
             </div>
+            <div>
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+            </div>
             <button type="submit">Criar Post</button>
         </form>
     </section>
     <footer>
-        <p><a href="{{ route('home') }}">Voltar para a página inicial</a></p>
     </footer>
 </body>
 </html>
